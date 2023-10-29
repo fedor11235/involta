@@ -1,24 +1,26 @@
 <template>
   <div
-    @pointerdown="handlerPointerdown"
+    @pointerdown.prevent="handlerPointerdown"
     class="slider"
     ref="slider"
   >
-    <div class="slider_range" :style="{width: `${percent}%`}"></div>
+    <div class="slider_range" :style="rangeStyle"></div>
     <div
-      :style="{left: `calc(${percent}% - 6px)`}"
-      class="slider_thumb">
+      :style="thumbStyle"
+      class="slider_thumb"
+    >
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const props = defineProps<{
   modelValue: number;
   maxValue :number;
   minValue? :number;
+  isRevert? :boolean;
 }>();
 
 const emit = defineEmits<{
@@ -37,6 +39,29 @@ const percent = ref(
   props.modelValue / (props.maxValue / rangeAll)
 )
 
+const rangeStyle = computed(() => {
+  if(props.isRevert) {
+    return {
+      marginLeft: `${rangeAll - percent.value}%`,
+      width: `${percent.value}%`
+    }
+  }
+  return {
+    width: `${percent.value}%`
+  }
+})
+
+const thumbStyle = computed(() => {
+  if(props.isRevert) {
+    return {
+      left: `calc(${rangeAll - percent.value}% - 6px)`
+    }
+  }
+  return {
+    left: `calc(${percent.value}% - 6px)`
+  }
+})
+
 function handlerPointerdown() {
   document.addEventListener('pointermove', handlerPointermove)
   document.addEventListener('pointerup', handlerPointerup)
@@ -51,7 +76,10 @@ function handlerPointermove(e:any) {
   if(!slider.value) return
   const width = slider.value.getBoundingClientRect().width
   const offsetX = e.pageX - slider.value.getBoundingClientRect().left
-  const percentCalc = Math.trunc(offsetX / (width / rangeAll))
+  let percentCalc = Math.trunc(offsetX / (width / rangeAll))
+  if(props.isRevert) {
+    percentCalc = rangeAll - percentCalc
+  }
   if(percentCalc > 100) {
     percent.value = 100
     return
@@ -59,18 +87,14 @@ function handlerPointermove(e:any) {
     percent.value = 0
     return
   }
-  percent.value = Math.trunc(offsetX / (width / rangeAll))
-  const value = Math.trunc(props.maxValue / rangeAll * percent.value)
+  percent.value = percentCalc
+  const value = Math.trunc(props.maxValue / rangeAll * percentCalc)
   emit("update:modelValue", value)
 }
 </script>
 
 <style lang="scss" scoped>
 .slider {
-  position: absolute;
-  bottom: 0;
-  left: 25px;
-  right: 25px;
   &_range {
     height: 3px;
     background-color: #083E4C;

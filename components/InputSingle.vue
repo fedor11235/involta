@@ -4,7 +4,13 @@
     <div class="input-single__view">
       <div class="input-single__view_value">{{ modelValue }} {{ textValue }}</div>
       <div v-if="isPercent" class="input-single__view_percent">{{ percent }}%</div>
-      <SliderControl @update:modelValue="handlerModelEvent" v-model="modelValueSlider" :minValue="minValue" :maxValue="maxValue"/>
+      <SliderControl
+        @update:modelValue="handlerModelEvent"
+        v-model="modelValueSlider"
+        :minValue="minValue"
+        :maxValue="maxValue"
+        class="slider"
+      />
     </div>
   </div>
 </template>
@@ -76,25 +82,11 @@ function handlerModelEvent(percentValue:number) {
       pointer-events: none;
       user-select: none;
     }
-    .input {
+    .slider {
       position: absolute;
       bottom: 0;
       left: 25px;
       right: 25px;
-      &_range {
-        height: 3px;
-        background-color: #083E4C;
-      }
-      &_thumb {
-        position: absolute;
-        bottom: -6px;
-        width: 12px;
-        height: 12px;
-        border-radius: 40px;
-        border: 2px solid #F5F7F5;
-        background-color: #083E4C;
-        cursor: pointer;
-      }
     }
   }
 }
