@@ -16,15 +16,15 @@
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
 
+const emit = defineEmits<{
+  (e: "update:modelValue", value: number): void;
+}>();
+
 const props = defineProps<{
   modelValue: number;
   maxValue :number;
   minValue? :number;
   isRevert? :boolean;
-}>();
-
-const emit = defineEmits<{
-  (e: "update:modelValue", value: number): void;
 }>();
 
 let minValue = props.minValue

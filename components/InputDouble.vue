@@ -27,6 +27,10 @@
 <script lang="ts" setup>
 import { ref, toRef } from 'vue'
 
+const emit = defineEmits<{
+  (e: "update:modelValue", value: number): void;
+}>();
+
 const props = defineProps<{
   title: string;
   modelValue: number;
@@ -37,10 +41,6 @@ const props = defineProps<{
 
 const modelValueMinSlider = toRef(props.modelValue)
 const modelValueMaxSlider = toRef(props.modelValue)
-
-const emit = defineEmits<{
-  (e: "update:modelValue", value: number): void;
-}>();
 
 const percent = ref()
 
