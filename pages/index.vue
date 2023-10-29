@@ -1,5 +1,6 @@
 <template>
   <div class="page" ref="page">
+    <HeaderPage class="page__header" :style="{ width: `${widthNormal * scaleCards}px`, padding: `0 ${55 * scaleCards}px`}"/>
 
     <ClientOnly fallback-tag="div" class="cards" fallback="Загрзка изоражений...">
       <div class="cards" :style="{ scale: scaleCards}">
@@ -13,16 +14,14 @@
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
 
-import card from "@/components/card.vue"
-
 import cardOne from "~/assets/img/card-one.jpg"
 import cardTwo from "~/assets/img/card-two.jpg"
 import cardThree from "~/assets/img/card-three.jpg"
 
+const widthNormal = 1440
+
 const scaleCards = ref(1)
 const page = ref()
-
-const widthNormal = 1440
 
 const cardsImg = [
   cardOne,
@@ -41,14 +40,19 @@ function handlerResize() {
 
 onMounted(() => {
   handlerResize();
-  page.value.addEventListener('resize', handlerResize);
+  window.addEventListener('resize', handlerResize);
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+
 .page {
   width: 100vw;
   height: 100vh;
+  &__header {
+    width: 1440px;
+    // margin: auto;
+  }
   .cards {
     display: flex;
     column-gap: 36px;

@@ -45,7 +45,10 @@ function handlerPointerLeave() {
     &_scale {
       animation: scale .3s linear forwards;
       @keyframes scale {
-        to {scale: 1.1;}
+        to {
+          translate: -10% -10%;
+          scale: 1.1;
+        }
       }
     }
   }
