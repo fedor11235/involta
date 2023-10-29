@@ -1,13 +1,12 @@
 <template>
-  <div class="page" ref="page">
+  <div class="page">
     <HeaderPage class="page__header" :style="{ width: `${widthNormal * scaleCards}px`, padding: `0 ${55 * scaleCards}px`}"/>
-
     <ClientOnly fallback-tag="div" class="cards" fallback="Загрзка изоражений...">
       <div class="cards" :style="{ scale: scaleCards}">
-        <card v-for="cardImg of cardsImg" :key="cardImg" :img="cardImg" />
+        <card v-for="cardInfo of cardsInfo" :key="cardInfo.id" :img="cardInfo.img" :title="cardInfo.title" :text="cardInfo.text" />
       </div>
     </ClientOnly>
-
+    <MortgageCalculator />
   </div>
 </template>
 
@@ -21,12 +20,26 @@ import cardThree from "~/assets/img/card-three.jpg"
 const widthNormal = 1440
 
 const scaleCards = ref(1)
-const page = ref()
 
-const cardsImg = [
-  cardOne,
-  cardTwo,
-  cardThree
+const cardsInfo = [
+  {
+    id: 0,
+    img: cardOne,
+    title: 'Ипотека от 4,3%',
+    text: 'Выгодные условия при оформлении у банков-партнеров'
+  },
+  {
+    id: 1,
+    img: cardTwo,
+    title: 'Рассрочка 0%',
+    text: 'Гибкие условия по размеру первоначального взноса, платежам и срокам'
+  },
+  {
+    id: 2,
+    img: cardThree,
+    title: 'Покупка в Trade-in',
+    text: 'Выгодный обмен старой квартиры на новую квартиру или апартаменты'
+  },
 ]
 
 function handlerResize() {
@@ -51,7 +64,6 @@ onMounted(() => {
   height: 100vh;
   &__header {
     width: 1440px;
-    // margin: auto;
   }
   .cards {
     display: flex;
