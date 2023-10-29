@@ -31,11 +31,12 @@ onMounted(() => {
 
 .calculator {
   display: inline-block;
-  padding: 45px 35px;
+  padding: 25px 35px 41px;
   border-radius: 40px;
   border: 1px solid #083E4C;
   width: 420px;
-  margin-left: 55px;
+  height: 519px;
+  box-sizing: border-box;
   &__title {
     display: inline-block;
     border-radius: 10px;

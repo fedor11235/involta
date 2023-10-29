@@ -18,7 +18,7 @@
 .header {
   display: flex;
   justify-content: space-between;
-  padding: 0 55px;
+  // padding: 0 55px;
   box-sizing: border-box;
   &__title {
     color: #3D4543;

@@ -1,12 +1,19 @@
 <template>
-  <div class="page">
-    <HeaderPage class="page__header" :style="{ width: `${widthNormal * scaleCards}px`, padding: `0 ${55 * scaleCards}px`}"/>
-    <ClientOnly fallback-tag="div" class="cards" fallback="Загрзка изоражений...">
-      <div class="cards" :style="{ scale: scaleCards}">
-        <card v-for="cardInfo of cardsInfo" :key="cardInfo.id" :img="cardInfo.img" :title="cardInfo.title" :text="cardInfo.text" />
+  <div class="page" :style="{scale: scaleCards, height: `${1101 * scaleCards}px`}">
+    <HeaderPage class="page__header" />
+    <div class="page__cards">
+      <CardInfo v-for="cardInfo of cardsInfo" :key="cardInfo.id" :img="cardInfo.img" :title="cardInfo.title" :text="cardInfo.text" />
+    </div>
+    <div class="page__info">
+      <CalculatorMortgage />
+      <div>
+        <CardMortgage />
+        <div class="page__warning">
+          Приведенные расчеты носят предварительный характер. Окончательный расчет суммы кредита и размер ежемесячного платежа производится банком после предоставления оценки платежеспособности клиента.
+        </div>
+        <BtnControl>Подать заявку на точный расчёт</BtnControl>
       </div>
-    </ClientOnly>
-    <MortgageCalculator />
+    </div>
   </div>
 </template>
 
@@ -58,17 +65,34 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-
 .page {
-  width: 100vw;
-  height: 100vh;
+  width: 1440px;
+  height: 1101px;
+  padding: 57.81px 55px;
+  box-sizing: border-box;
+  transform-origin: top;
   &__header {
-    width: 1440px;
+    margin-bottom: 43px;
   }
-  .cards {
+  &__cards {
     display: flex;
     column-gap: 36px;
-    justify-content: center;
+    margin-bottom: 75px;
+  }
+  &__info {
+    display: flex;
+    column-gap: 36px;
+  }
+  &__warning {
+    width: 872px;
+    color: #778478;
+    font-family: GilroyRegular;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+    margin-top: 25px;
+    margin-bottom: 40px;
   }
 }
 </style>
