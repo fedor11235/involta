@@ -48,28 +48,19 @@ const infoMenu = [
   position: relative;
   height: fit-content;
   &_title {
+    @include fontSet($color3, 74px, 110%);
     position: absolute;
     top: 60px;
     left: 40px;
-    color: #083E4C;
-    font-family: GilroyRegular;
-    font-size: 74px;
-    font-weight: 500;
-    line-height: 110%;
     padding: 12px 15px;
     border-radius: 16px;
-    background-color: #FFF;
+    background-color: white;
   }
   &_more {
+    @include fontSet($color6, 14px, 100%);
     position: absolute;
     top: 0;
     right: 0;
-    color: #3D4543;
-    font-family: GilroyRegular;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 100%;
   }
   &_info {
     position: absolute;
@@ -79,19 +70,10 @@ const infoMenu = [
     column-gap: 67px;
     &_item {
       &_title {
-        color: rgba(255, 255, 255, 0.70);
-        font-family: GilroyRegular;
-        font-size: 14px;
-        font-weight: 500;
-        line-height: 100%;
-        margin-bottom: 16px;
+        @include fontSet($color10, 14px, 100%);
       }
       &_text {
-        color: #FFF;
-        font-family: GilroyRegular;
-        font-size: 30px;
-        font-weight: 500;
-        line-height: 120%;
+        @include fontSet(white, 30px, 120%);
       }
     }
   }

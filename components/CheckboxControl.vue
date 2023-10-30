@@ -37,24 +37,19 @@ function handlerClick() {
     width: 25px;
     height: 25px;
     border-radius: 6px;
-    border: 1px solid rgba(8, 62, 76, 0.50);
-    background: var(--white, #FFF);
-    box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.02);
+    border: 1px solid $color9;
+    background: var(--white, white);
+    box-shadow: 0px 4px 15px 0px $color11;
     cursor: pointer;
     &_circle {
       width: 12px;
       height: 12px;
       border-radius: 50%;
-      background-color: rgba(8, 62, 76, 0.50);
+      background-color: $color9;
     }
   }
   &__title {
-    color: #3D4543;
-    font-family: GilroyRegular;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 100%;
+    @include fontSet($color6, 14px, 100%);
   }
 }
 </style>

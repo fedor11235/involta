@@ -53,29 +53,21 @@ function handlerPointerLeave() {
 .card {
   position: relative;
   &__title {
+    @include fontSet($color5, 26px, 130%);
     position: absolute;
     top: 20px;
     left: 20px;
-    color: #545863;
-    font-family: GilroyRegular;
-    font-size: 26px;
-    font-weight: 500;
-    line-height: 130%;
     padding: 10px 12px;
     border-radius: 10px;
-    background: #FFF;
+    background: white;
     pointer-events: none;
   }
   &__text {
+    @include fontSet(white, 16px, 140%);
     position: absolute;
     top: 214px;
     left: 20px;
     width: 295px;
-    color: #FFF;
-    font-family: GilroyRegular;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 140%;
     pointer-events: none;
   }
   &__view {

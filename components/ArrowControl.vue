@@ -37,7 +37,7 @@ function handlerPointerup() {
   transition: opacity .3s, scale .3s, background-color .3s;
   width: 62px;
   height: 62px;
-  border: 1px solid #005B73;
+  border: 1px solid $color1;
   border-radius: 50%;
   box-sizing: border-box;
   display: flex;
@@ -49,7 +49,7 @@ function handlerPointerup() {
   }
   &_active {
     scale: 1.12;
-    background-color: #005B73;
+    background-color: $color1;
   }
 }
 </style>

@@ -1,23 +1,22 @@
 <template>
-  <div class="input-single">
-    <div class="input-single__title">{{ title }}</div>
-    <div class="input-single__view">
-      <div class="input-single__view_value">{{ modelValue }}</div>
-      <div class="input-single__view_value">{{ modelValue }}</div>
-      <div class="input-single__view_substrate"></div>
+  <div class="input-double">
+    <div class="input-double__title">{{ title }}</div>
+    <div :class="['input-double__view', {'input-double__view_active': isInputactive}]">
+      <div class="input-double__view_value">{{ sliderMin }}</div>
+      <div class="input-double__view_value">{{ sliderMax }}</div>
+      <div class="input-double__view_substrate"></div>
+      <div class="input-double__view_separate"></div>
       <SliderControl
-        @update:modelValue="handlerModelEvent"
+        @update:modelValue="handlerModelEventMin"
+        @is-active="setActiveValue"
         v-model="modelValueMinSlider"
-        :minValue="minValue"
-        :maxValue="maxValue"
         isRevert
         class="slider-min"
       />
       <SliderControl
-        @update:modelValue="handlerModelEvent"
+        @update:modelValue="handlerModelEventMax"
+        @is-active="setActiveValue"
         v-model="modelValueMaxSlider"
-        :minValue="minValue"
-        :maxValue="maxValue"
         class="slider-max"
       />
     </div>
@@ -26,38 +25,51 @@
 
 <script lang="ts" setup>
 import { ref, toRef } from 'vue'
+import { useCalculatorStore } from '~/store/calculator'
+import { storeToRefs } from 'pinia'
+
+const calculatorStore = useCalculatorStore()
+
+const { isActive } = storeToRefs(calculatorStore)
 
 const emit = defineEmits<{
-  (e: "update:modelValue", value: number): void;
+  (e: "min-value", value: number): void;
+  (e: "max-value", value: number): void;
 }>();
 
 const props = defineProps<{
+  sliderMin: number;
+  sliderMax: number;
   title: string;
-  modelValue: number;
-  maxValue :number;
-  minValue? :number;
+  maxValue: number;
   isPercent? :boolean;
 }>();
 
-const modelValueMinSlider = toRef(props.modelValue)
-const modelValueMaxSlider = toRef(props.modelValue)
+const modelValueMinSlider = toRef(props.sliderMin)
+const modelValueMaxSlider = toRef(props.sliderMax)
 
-const percent = ref()
+const isInputactive = ref(false)
 
-function handlerModelEvent(percentValue:number) {
-  emit("update:modelValue", percentValue)
-  percent.value = percentValue
+function handlerModelEventMin(percentValue:number) {
+  const value = Number((props.maxValue/ 100 * percentValue).toFixed(1))
+  emit("min-value", value)
+}
+
+function handlerModelEventMax(percentValue:number) {
+  const value = Number((props.maxValue/ 100 * percentValue).toFixed(1))
+  emit("max-value", value)
+}
+
+function setActiveValue(event:boolean) {
+  isActive.value = event
+  isInputactive.value = event
 }
 </script>
 
 <style lang="scss" scoped>
-.input-single {
+.input-double {
   &__title {
-    color: #3D4543;
-    font-family: GilroyRegular;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 100%;
+    @include fontSet($color6, 14px, 100%);
     margin-bottom: 13px;
     pointer-events: none;
     user-select: none;
@@ -65,29 +77,34 @@ function handlerModelEvent(percentValue:number) {
   &__view {
     position: relative;
     border-radius: 100px;
-    background-color: #F1F5F5;
-    box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.02);
+    background-color: $color7;
+    box-shadow: 0px 4px 15px 0px $color11;
     box-sizing: border-box;
     display: flex;
     width: 100%;
     height: 58px;
     padding: 20px 20px 22px 20px;
     justify-content: space-between;
+    border: 1px solid $color7;
+    &_active {
+      border: 1px solid $color2;
+    }
+    &_separate {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      translate: -50% -50%;
+      width: 1px;
+      height: 14px;
+      background-color: $color9;
+    }
     &_value {
-      color: #545863;
-      font-family: GilroyRegular;
-      font-size: 16px;
-      font-weight: 500;
-      line-height: 140%;
+      @include fontSet($color5, 16px, 140%);
       pointer-events: none;
       user-select: none;
     }
     &_percent {
-      color: #083E4C;
-      font-family: GilroyRegular;
-      font-size: 16px;
-      font-weight: 500;
-      line-height: 100%;
+      @include fontSet($color3, 16px, 100%);
       pointer-events: none;
       user-select: none;
     }
@@ -98,7 +115,7 @@ function handlerModelEvent(percentValue:number) {
       left: 50%;
       translate: -50% 0%;
       height: 3px;
-      background-color: #083E4C;
+      background-color: $color3;
     }
     .slider-min {
       position: absolute;

@@ -34,10 +34,7 @@ function handlerPointerup() {
 
 <style lang="scss" scoped>
 .btn {
-  font-family: GilroyRegular;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 100%;
+  @include fontSet(white, 16px, 100%);
   border-radius: 100px;
   padding: 20px 25px;
   width: fit-content;
@@ -45,16 +42,16 @@ function handlerPointerup() {
   transition:
     color .3s, background-color .3s, border .3s;
   &_empty {
-    border: 1px solid #083E4C;
-    color: #083E4C;
+    border: 1px solid $color3;
+    color: $color3;
   }
   &_filled {
-    border: 1px solid #083E4C;
-    background: #083E4C;
-    color: #FFF;
+    border: 1px solid $color3;
+    background: $color3;
+    color: white;
   }
   &_active {
-    background-color: #005B73;
+    background-color: $color1;
     color: white;
   }
 }

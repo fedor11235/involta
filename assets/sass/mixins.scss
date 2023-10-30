@@ -1,0 +1,7 @@
+@mixin fontSet($color, $size, $line-height) {
+  color: $color;
+  font-family: GilroyRegular;
+  font-size: $size;
+  font-weight: 500;
+  line-height: $line-height;
+}

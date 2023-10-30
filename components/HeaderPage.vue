@@ -24,11 +24,7 @@ const isClickArroeRight = ref(false)
   justify-content: space-between;
   box-sizing: border-box;
   &__title {
-    color: #3D4543;
-    font-family: GilroyRegular;
-    font-size: 42px;
-    font-weight: 500;
-    line-height: 120%;
+    @include fontSet($color6, 42px, 120%);
   }
   &__menu {
     display: flex;

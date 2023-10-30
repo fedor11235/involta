@@ -85,13 +85,8 @@ onMounted(() => {
     column-gap: 36px;
   }
   &__warning {
+    @include fontSet($color8, 14px, 140%);
     width: 872px;
-    color: #778478;
-    font-family: GilroyRegular;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 140%;
     margin-top: 25px;
     margin-bottom: 40px;
   }
