@@ -7,9 +7,6 @@
 </template>
 
 <style lang="scss" scoped>
-body {
-  margin: 0;
-}
 .layout-default {
   display: flex;
   align-items: center;
