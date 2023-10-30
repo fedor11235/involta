@@ -11,7 +11,7 @@
         <div class="page__warning">
           Приведенные расчеты носят предварительный характер. Окончательный расчет суммы кредита и размер ежемесячного платежа производится банком после предоставления оценки платежеспособности клиента.
         </div>
-        <BtnControl>Подать заявку на точный расчёт</BtnControl>
+        <BtnControl v-model="isApply" version="filled">Подать заявку на точный расчёт</BtnControl>
       </div>
     </div>
   </div>
@@ -27,6 +27,7 @@ import cardThree from "~/assets/img/card-three.jpg"
 const widthNormal = 1440
 
 const scaleCards = ref(1)
+const isApply = ref(false)
 
 const cardsInfo = [
   {
